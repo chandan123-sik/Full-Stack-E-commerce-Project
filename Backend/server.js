@@ -26,7 +26,7 @@ app.use("/api/cart",cartRouter);
 app.use("/api/order",orderRouter);
 
 app.get("/",(req,res)=>{
-    res.send("Api working-")
+    res.send("Api working is Good-")
 })
 
 // server start-

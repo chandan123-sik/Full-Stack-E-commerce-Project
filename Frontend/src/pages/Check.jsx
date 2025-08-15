@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const Verify = ()=>{
+const Check = ()=>{
 
     const {navigate, token, setCartItems, backendURL} = useContext(ShopContext);
     const [searchParams, setSearchParams] = useSearchParams();
@@ -43,4 +43,4 @@ const Verify = ()=>{
         </div>
     )
 }
-export default Verify;
+export default Check;
