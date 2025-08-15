@@ -18,7 +18,7 @@ import ProductItem from './ProductItem';
      <div className='text-center py-8 text-3xl'>
         <Title text1={'LATEST'} text2={'COLLECTIONS'}></Title>
         <p className='w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600'>
-            bvbxcvbxcnvbncbxvnxcbnvbxncbvnbxcvbxncbvncxbvnxcnvbncxbvnbcxvnbxcnvbnxcbvnxbcnvbcxnvbnxcbcvnbcxnvbnxcbvnx
+          "Our e-commerce platform showcases the latest products added to the store, ensuring customers always have access to the newest trends. The system automatically fetches and displays the most recent items, providing a dynamic and up-to-date shopping experience."
         </p>
      </div>
 

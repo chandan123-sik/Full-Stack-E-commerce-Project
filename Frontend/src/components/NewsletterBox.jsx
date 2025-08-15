@@ -11,7 +11,7 @@ const NewsletterBox = () => {
     <div className='text-center'>
       <p className='text-2xl font-medium text-gray-800'>Subscribe now and get 20% off</p>
        <p className='text-gray-400 mt-3 break-words'> 
-        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        "Join our newsletter today and get an instant 20% off on your first purchase. Stay updated with the latest deals, products, and exclusive offers."
        </p>
       <form onClick={onSubmitHandler} className='w-full sm:w-1/2 flex items-center gap-3 mx-auto my-6 border pl-3'>
         <input className='w-full sm:flex-1 outline-none' type='email' placeholder='Enter your email: ' required/>

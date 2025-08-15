@@ -7,7 +7,7 @@ const Footer = () => {
         <div>
             <img src={assets.logo} className='mb-5 w-32'></img>
             <p className='w-full md:w-2/3 text-gray-600 break-words'>
-                xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                "Connecting you with the best products, offers, and shopping experience online."
             </p>
         </div>
         <div>

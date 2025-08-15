@@ -16,7 +16,7 @@ const BestSeller = () => {
      <div className='text-center text-3xl py-8'>
         <Title text1={'BEST'} text2={'SELLERS'}></Title>
         <p className='w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600 break-words'>
-            bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+          "Discover our top-selling products, loved by customers for their quality and popularity. Stay ahead with items that are trending and in high demand."
         </p>
      </div>
 
