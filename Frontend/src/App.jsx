@@ -14,10 +14,16 @@ import Footer from './components/Footer';
 import SearchBar from './components/SearchBar';
 import { ToastContainer} from 'react-toastify';
 import Check from "./pages/Check";
-
-
-
+import ChatbotButton from "./components/Chatbot/ChatbotButton";
+import ChatWindow from "./components/Chatbot/ChatWindow";
+import { useState } from 'react';
 const App = () => {
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleChat = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
       <ToastContainer/>
@@ -36,6 +42,9 @@ const App = () => {
         <Route path='/verify' element={<Check></Check>}></Route>
       </Routes>
       <Footer></Footer>
+
+        <ChatbotButton toggleChat={toggleChat} />
+      {isOpen && <ChatWindow toggleChat={toggleChat} />}
     </div>
   )
 }
