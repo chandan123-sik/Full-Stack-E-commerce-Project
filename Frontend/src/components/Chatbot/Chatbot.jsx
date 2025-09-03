@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import ChatbotButton from "./Chatbot/ChatbotButton";
-import ChatWindow from "./Chatbot/ChatWindow";
+import ChatbotButton from "./ChatbotButton";
+import ChatWindow from "./ChatWindow";
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
-    { from: "bot", text: "Hi 👋! How can I help you today?" },
+    { sender: "bot", text: "Hi 👋! How can I help you today?" },
   ]);
   const [loading, setLoading] = useState(false);
 
@@ -19,12 +19,12 @@ const Chatbot = () => {
     if (!message.trim()) return;
 
     // add user msg
-    const newMessages = [...messages, { from: "user", text: message }];
+    const newMessages = [...messages, { sender: "user", text: message }];
     setMessages(newMessages);
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/chat", {
+      const res = await fetch("http://localhost:4000/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message }),
@@ -33,14 +33,14 @@ const Chatbot = () => {
       const data = await res.json();
       setMessages([
         ...newMessages,
-        { from: "bot", text: data.reply || "Sorry, I didn’t get that." },
+        { sender: "bot", text: data.reply || "Sorry, I didn’t get that." },
       ]);
     } catch (error) {
       setMessages([
         ...newMessages,
-        { from: "bot", text: "⚠️ Error connecting to server." },
-        console.log(error)
+        { sender: "bot", text: "⚠️ Error connecting to server." },
       ]);
+      console.log(error);
     } finally {
       setLoading(false);
     }
