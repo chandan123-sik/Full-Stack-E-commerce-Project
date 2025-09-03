@@ -4,16 +4,73 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-  font-family: Outfit;
+/* 🌎 Global Reset */
+* {
+  font-family: 'Outfit', sans-serif;
+  transition: all 0.3s ease-in-out; /* smooth hover & focus transitions */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-select,input,textarea{
-  border: 1px solid #c2c2c2;
-  outline-color:#C58645;
-  border-radius:4px;
+/* 🎨 Backgrounds & Theme */
+body {
+  @apply bg-gray-50 text-gray-800;
 }
-.active{
-    background-color: #ffebf5;
-    border-color: #c586A5
+
+/* 🌟 Inputs, Selects & Textareas */
+select, input, textarea {
+  border: 1px solid #c2c2c2;
+  border-radius: 6px;
+  padding: 0.5rem;
+  @apply focus:ring-2 focus:ring-indigo-400 focus:border-indigo-500;
+}
+
+/* ✅ Active NavLink Highlight */
+.active {
+  background: linear-gradient(90deg, #6366f1 0%, #a855f7 100%);
+  color: #fff !important;
+  border: none !important;
+  box-shadow: 0 2px 6px rgba(99, 102, 241, 0.3);
+  border-radius: 8px;
+}
+
+/* 🔘 Buttons */
+button {
+  @apply rounded-lg font-medium shadow-sm;
+}
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+button:active {
+  transform: scale(0.97);
+}
+
+/* 🖱️ Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6366f1, #a855f7);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #4f46e5, #9333ea);
+}
+
+/* 🌙 Dark Mode (ready classes) */
+.dark {
+  @apply bg-gray-900 text-gray-100;
+}
+.dark input,
+.dark select,
+.dark textarea {
+  @apply bg-gray-800 border-gray-600 text-gray-200;
+}
+.dark .active {
+  background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
 }
