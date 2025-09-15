@@ -66,6 +66,7 @@ const PlaceOrder = () => {
 
         case 'stripe':
           {
+            // api call karte h stripe session banane ke liye
             const responseStripe = await axios.post(
               backendURL + "/api/order/stripe",
               {
