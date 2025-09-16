@@ -1,10 +1,13 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { assets } from "../assets/assets";
 import { ShopContext } from '../context/ShopContext';
 
 const Navbar = () => {
     const [visible, setVisible] = useState(false);
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const dropdownRef = useRef();
+
     const { setShowsearch, getCartCount, token, setToken, navigate, setCartItems } = useContext(ShopContext);
 
     const logout = () => {
@@ -12,7 +15,21 @@ const Navbar = () => {
         localStorage.removeItem('token');
         setToken('');
         setCartItems({});
-    }
+        setDropdownOpen(false); // Logout par dropdown band ho
+    };
+
+    // Bahar click karne par dropdown band ho
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setDropdownOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <div className="flex items-center justify-between py-4 px-5 sm:px-8 font-medium bg-white shadow-sm sticky top-0 z-50">
@@ -50,16 +67,22 @@ const Navbar = () => {
                     className="w-5 cursor-pointer hover:opacity-75 transition-opacity"
                 />
 
-                <div className="group relative">
+                {/* Profile Dropdown */}
+                <div className="relative" ref={dropdownRef}>
                     <img
-                        onClick={() => token ? null : navigate('/login')}
+                        onClick={() => {
+                            if (token) {
+                                setDropdownOpen(prev => !prev); // Toggle dropdown
+                            } else {
+                                navigate('/login');
+                            }
+                        }}
                         src={assets.profile_icon}
                         alt="Profile"
                         className="w-5 cursor-pointer hover:opacity-75 transition-opacity"
                     />
-                    {/* Dropdown menu */}
-                    {token &&
-                        <div className="group-hover:block hidden absolute right-0 mt-2 w-36 py-3 px-4 bg-gray-100 rounded shadow-lg text-gray-700">
+                    {token && dropdownOpen &&
+                        <div className="absolute right-0 mt-2 w-36 py-3 px-4 bg-gray-100 rounded shadow-lg text-gray-700">
                             <p className="cursor-pointer hover:text-blue-500">My Profile</p>
                             <p onClick={() => navigate("/order")} className="cursor-pointer hover:text-blue-500">Orders</p>
                             <p onClick={logout} className="cursor-pointer hover:text-blue-500">Logout</p>
@@ -72,7 +95,6 @@ const Navbar = () => {
                     <p className="absolute right-[-5px] bottom-[-5px] w-4 text-[8px] text-center leading-4 bg-black text-white rounded-full aspect-square">{getCartCount()}</p>
                 </Link>
 
-                {/* Hamburger icon for mobile */}
                 <img
                     onClick={() => setVisible(true)}
                     src={assets.menu_icon}
@@ -81,7 +103,7 @@ const Navbar = () => {
                 />
             </div>
 
-            {/* Sidebar Menu for mobile */}
+            {/* Sidebar for mobile */}
             <div className={`fixed top-0 right-0 bottom-0 bg-white overflow-hidden transition-all duration-300 ease-in-out ${visible ? 'w-64' : 'w-0'}`}>
                 <div className="flex flex-col text-gray-700 h-full">
                     <div onClick={() => setVisible(false)} className="flex items-center gap-3 p-3 cursor-pointer hover:bg-gray-100">
@@ -95,7 +117,7 @@ const Navbar = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Navbar;
