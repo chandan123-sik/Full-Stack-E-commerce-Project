@@ -12,12 +12,13 @@ import { useEffect } from "react";
      const currency = '$';
      const delivery_fee = 10;
      const backendURL = import.meta.env.VITE_BACKEND_URL;
-     const [search,setSearch] = useState('');
-     const [showsearch, setShowsearch] = useState(false);
-     const [cardItems,setCartItems] = useState({});
-     const [products,setProducts] = useState([]);
-     const [token,setToken] = useState('');
-     const navigate = useNavigate();
+
+     const [search,setSearch] = useState(''); // user ka search input
+     const [showsearch, setShowsearch] = useState(false); // search bar show/hide karne ke liye
+     const [cardItems,setCartItems] = useState({}); // cart me item or uski quantity store karne ke liye
+     const [products,setProducts] = useState([]); // product list fetch karke store karta h
+     const [token,setToken] = useState(''); // user token store karne ke liye
+     const navigate = useNavigate(); //
 
      const addToCart = async (itemId, size) =>{
 
@@ -55,6 +56,7 @@ import { useEffect } from "react";
       }
      }
 
+     // Cart me total items ka count nikalta hai.
     const getCartCount = () =>{
       let totalCount = 0;
       for(const items in cardItems){  // iterate the items
@@ -71,6 +73,7 @@ import { useEffect } from "react";
       return totalCount;
     }
 
+    // Quantity update karta hai aur backend ko bhi sync karta hai.
    const updateQuantity = async(itemId,size,quantity)=>{
     let cartData = structuredClone(cardItems);
 
@@ -88,7 +91,7 @@ import { useEffect } from "react";
       
     }
    }
-   
+   // Cart ka total price calculate karta hai.
    const getCartAmount = ()=> {
         let totalAmount = 0;
         for(const items in cardItems){
@@ -114,7 +117,7 @@ import { useEffect } from "react";
     //   console.log(cardItems);
     // },[cardItems])
 
-
+    // API call karke product list fetch karta hai.
     const getProductsData = async ()=>{
       try {
         const response = await axios.get(backendURL + "/api/product/list");
@@ -132,6 +135,7 @@ import { useEffect } from "react";
       }
     }
 
+    // Backend se user ka cart data fetch karta hai.
     const getUserCart = async (token)=>{
       try{
       const response = await axios.post(backendURL + "/api/cart/get",{},{headers:{token}});
@@ -146,11 +150,12 @@ import { useEffect } from "react";
 
 
 
-
+   // Application start hone par products fetch karta hai.
     useEffect(()=>{
         getProductsData();
     },[])
     
+     // Agar page reload hone par token localStorage me hai, to token set karta hai aur user ka cart fetch karta hai.
     useEffect(()=>{
       if(!token && localStorage.getItem('token')){
         setToken(localStorage.getItem('token'));
@@ -160,7 +165,7 @@ import { useEffect } from "react";
 
 
 
-
+     // Sabhi states aur functions ko encapsulate karke context me provide karta hai.
      const value = {
        products, currency, delivery_fee,
        search,setSearch,showsearch, setShowsearch,
@@ -169,7 +174,7 @@ import { useEffect } from "react";
        getCartAmount,navigate,
        backendURL,setToken,token
      }
-     
+     // App ke andar jahan jahan ShopContextProvider wrap hai, wahan ye values accessible hain.
       return(
         <ShopContext.Provider value={value}>
             {props.children}
